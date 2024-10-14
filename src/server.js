@@ -3,6 +3,8 @@ import pino from 'pino-http';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import contactsRouter from '../src/routers/contacts.js';
+import { errorHandler } from './middlewars/errorHandler.js';
+import { notFoundHandler } from './middlewars/notFoundHandler.js';
 
 dotenv.config();
 
@@ -22,11 +24,10 @@ export const setupServer = () => {
 
   app.use(contactsRouter);
 
-  app.use('*', (req, res, next) => {
-    res.status(404).json({
-      message: 'Not Found',
-    });
-  });
+  app.use(errorHandler);
+
+  app.use(notFoundHandler);
+
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
   });

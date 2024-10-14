@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import express from 'express';
 import {
-  getContactsCollection,
-  getContactsById,
+  getContactsController,
+  getContactsByIdController,
   createContactController,
   patchContactController,
   deleteContactController,
@@ -12,9 +12,9 @@ import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 const router = Router();
 const jsonParser = express.json();
 
-router.get('/contacts', ctrlWrapper(getContactsCollection));
+router.get('/contacts', ctrlWrapper(getContactsController));
 
-router.get('/contacts/:contactId', ctrlWrapper(getContactsById));
+router.get('/contacts/:contactId', ctrlWrapper(getContactsByIdController));
 
 router.post('/contacts', jsonParser, ctrlWrapper(createContactController));
 
